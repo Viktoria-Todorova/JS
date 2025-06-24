@@ -1,6 +1,7 @@
 function circeArea(val){
     if (typeof val === 'number'){
-        console.log(Math.PI * val * val);
+        let area = Math.PI * val * val;
+        console.log(area.toFixed(2));
         
     }
     else{
