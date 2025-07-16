@@ -1,3 +1,8 @@
 function showText() {
-    // TODO
+    const readMore = document.getElementById('more');
+    const textToShow = document.getElementById('text');
+    readMore.style.display ='none';
+    textToShow.style.display ='inline';
+    
+    
 }
