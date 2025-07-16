@@ -12,7 +12,7 @@ function makeAdictionary(json){
         
     }
     let entries = Object.entries(finalDictionary);
-    entries.sort((a,b) => a[0].localeCompare(b));
+    entries.sort((a,b) => a[0].localeCompare(b[0]));
     for (const [term,definition] of entries){
         console.log(`Term: ${term} => Definition: ${definition}`);
         
