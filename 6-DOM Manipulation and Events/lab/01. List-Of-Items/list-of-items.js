@@ -1,11 +1,13 @@
 function addItem() {
     const inputTextEl = document.getElementById('newItemText');
-    let listOfItems = document.getElementById('items');
-    const newItemText = inputTextEl.value.trim();
+    const listOfItems = document.getElementById('items');
+    const newTextItem = inputTextEl.value.trim();
 
     const newLiEl = document.createElement('li');
-    newLiEl.textContent = newItemText;
+
+    newLiEl.textContent = newTextItem;
     listOfItems.appendChild(newLiEl);
+    
     
     
 }
