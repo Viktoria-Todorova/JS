@@ -33,6 +33,8 @@ function solve(input){
         farmerArea[name] = area;
         farmerTask[name]=new Set(task);
         
+        
+        
     }
 
     while( input[0] != 'End'){
