@@ -1,31 +1,27 @@
-
 async function lockedProfile() {
-    const mainEl = document.getElementById('main');//add div elemets here
+    const mainEl = document.getElementById('main');
     
     const createRes = await fetch('http://localhost:3030/jsonstore/advanced/profiles');
     const profilesData = await createRes.json();
     const profileArr = Object.values(profilesData);
     mainEl.innerHTML='';
     console.log(profileArr);
-    
-    
 
     profileArr.forEach(profileObk => {
-        const divProfileEl = document.createElement('div'); //add all elemets here
-        divProfileEl.classList = 'profile';
+        const divProfileEl = document.createElement('div');
+        divProfileEl.classList.add('profile');
 
         const imgEl = document.createElement('img');
         imgEl.src = "./iconProfile2.png";
-        imgEl.classList = 'userIcon';
-        
+        imgEl.classList.add('userIcon');
 
         const labelLoc = document.createElement('label');
         labelLoc.textContent = 'Lock';
 
         const inputRadioEl = document.createElement('input');
         inputRadioEl.type = 'radio';
-        inputRadioEl.name = `${profileObk._id}Locked`; // todo
-        inputRadioEl.value ='lock'; // 
+        inputRadioEl.name = `${profileObk._id}Locked`;
+        inputRadioEl.value ='lock';
         inputRadioEl.checked = true;
 
         const labelUnlock = document.createElement('label');
@@ -33,8 +29,8 @@ async function lockedProfile() {
 
         const inputRadiUnlock = document.createElement('input');
         inputRadiUnlock.type = 'radio';
-        inputRadiUnlock.name = `${profileObk._id}Locked`; // todo
-        inputRadiUnlock.value ='unlock'; // 
+        inputRadiUnlock.name = `${profileObk._id}Locked`;
+        inputRadiUnlock.value ='unlock';
 
         const br = document.createElement('br');
         const hr1 = document.createElement('hr');
@@ -42,61 +38,47 @@ async function lockedProfile() {
 
         const labelUsername = document.createElement('label');
         labelUsername.textContent = 'Username';
-        
 
         const inputUsername = document.createElement('input');
         inputUsername.type = 'text';
         inputUsername.name = `${profileObk._id}Username`;
-        inputUsername.value = profileObk.username; // Set to something like 'JohnDoe' if needed
+        inputUsername.value = profileObk.username;
         inputUsername.disabled = true;
         inputUsername.readOnly = true;
-        //inputUsername.textContent = profileObk.username;
 
-        //div to add 
         const divUsername = document.createElement('div');
-        divUsername.classList = `${profileObk._id}Username`;
+        divUsername.classList.add(`${profileObk._id}Username`);
         divUsername.style.display = 'none';
-        //hr
 
         const labelEmail = document.createElement('label');
         labelEmail.textContent = 'Email:';
-        
 
         const inputEmail = document.createElement('input');
         inputEmail.type = 'email';
         inputEmail.name = `${profileObk._id}Email`;
-        inputEmail.value = profileObk.email; // Set to something like 'JohnDoe' if needed
+        inputEmail.value = profileObk.email;
         inputEmail.disabled = true;
         inputEmail.readOnly = true;
-        
-
 
         const labelAge = document.createElement('label');
         labelAge.textContent = 'Age:';
-        
-
 
         const inputAge = document.createElement('input');
         inputAge.type = 'number';
         inputAge.name = `${profileObk._id}Age`;
-        inputAge.value = profileObk.age; // Set to something like 'JohnDoe' if needed
+        inputAge.value = profileObk.age;
         inputAge.disabled = true;
         inputAge.readOnly = true;
-        
 
-        //---------
         divUsername.appendChild(hr1);
         divUsername.appendChild(labelEmail);
         divUsername.appendChild(inputEmail);
         divUsername.appendChild(labelAge);
         divUsername.appendChild(inputAge);
-        //-------
-        
 
         const showMoreBtn = document.createElement('button');
         showMoreBtn.textContent = 'Show more';
-        
-        //----
+
         divProfileEl.appendChild(imgEl);
         divProfileEl.appendChild(labelLoc);
         divProfileEl.appendChild(inputRadioEl);
@@ -110,7 +92,6 @@ async function lockedProfile() {
         divProfileEl.appendChild(showMoreBtn);
 
         mainEl.appendChild(divProfileEl);
-        
 
         showMoreBtn.addEventListener('click', () => {
             if (inputRadiUnlock.checked) {
@@ -123,13 +104,7 @@ async function lockedProfile() {
                     divUsername.style.display = 'none';
                     showMoreBtn.textContent = 'Show more';
                 }
-    }
             }
-        )
-    })
-
-    console.log(mainEl);
-    
-    
-    
+        });
+    });
 }
