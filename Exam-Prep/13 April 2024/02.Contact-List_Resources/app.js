@@ -10,14 +10,17 @@ function solve() {
 
     const contactLists = document.getElementById('contact-list');
     const form = document.querySelector('form');
-
+    
+    const nameEl = document.getElementById('name');
+        const phoneEl = document.getElementById('phone');
+        const categoryEl = document.getElementById('category');
     function handleAddBtn(e){
       e.preventDefault();
-        const nameEl = document.getElementById('name').value.trim();
-        const phoneEl = document.getElementById('phone').value.trim();
-        const categoryEl = document.getElementById('category');
+        const name = nameEl.value.trim();
+        const phone = phoneEl.value.trim();
+        const category = categoryEl.value;
 
-        if(!nameEl || !phoneEl || !categoryEl.value) {
+        if(!name || !phone || !category) {
           return;
         }
 
@@ -26,16 +29,15 @@ function solve() {
 
         const pName = document.createElement('p');
 
-        pName.textContent = `name:${nameEl}`
+        pName.textContent = `name:${name}`
 
 
         const pPhone = document.createElement('p');
 
-        pPhone.textContent = `phone:${phoneEl}`
+        pPhone.textContent = `phone:${phone}`
 
         const pCat = document.createElement('p');
-        const selectedText = categoryEl.value;
-        pCat.textContent = `category:${selectedText.toLowerCase()}`;
+        pCat.textContent = `category:${category.toLowerCase()}`;
 
         article.appendChild(pName);
         article.appendChild(pPhone);
@@ -59,14 +61,14 @@ function solve() {
 
         ulCheckListEl.appendChild(LiEl);
 
-        document.getElementById('name').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('category').value = '';
+        nameEl.value = '';
+        phoneEl.value = '';
+        categoryEl.value = '';
 
     function handleEditbtn(){
-        document.getElementById('name').value = nameEl;
-        document.getElementById('phone').value =phoneEl;
-        document.getElementById('category').value =categoryEl.value;
+        nameEl.value = name;
+        phoneEl.value =phone;
+        categoryEl.value =categoryEl;
 
       
 
@@ -92,8 +94,8 @@ function solve() {
         LiEl.remove();
       
     }
-
     form.reset();
+    
     }
 
 
