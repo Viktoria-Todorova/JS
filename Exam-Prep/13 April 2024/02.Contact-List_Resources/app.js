@@ -14,6 +14,7 @@ function solve() {
     const nameEl = document.getElementById('name');
         const phoneEl = document.getElementById('phone');
         const categoryEl = document.getElementById('category');
+        
     function handleAddBtn(e){
       e.preventDefault();
         const name = nameEl.value.trim();
