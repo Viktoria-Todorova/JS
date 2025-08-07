@@ -3,6 +3,17 @@ loadAppointmentsBtn.addEventListener('click', handleLoadAppoitnemts);
 
 const appoitmentList = document.getElementById('appointments-list');
 
+
+const addAppointmentBtn = document.getElementById('add-appointment');
+addAppointmentBtn.addEventListener('click', handleAddBtn);
+const editAppoitmetBtn = document.getElementById('edit-appointment');
+editAppoitmetBtn.addEventListener('click', handleEditBtn);
+
+const carModelEl = document.getElementById('car-model');
+const serviceEl = document.getElementById('car-service');
+const dateEl = document.getElementById('date');
+const formEl = document.querySelector('form');
+let currentEditingId = null;
 async function handleLoadAppoitnemts(){
     appoitmentList.innerHTML = '';
 
@@ -37,12 +48,87 @@ async function handleLoadAppoitnemts(){
         changeBtn.addEventListener('click', handleChangeBtn);
 
 
-        const deletebtn = 
+        const deletebtn = document.createElement('button');
+        deletebtn.classList.add('delete-btn');
+        deletebtn.textContent = 'Delete';
+        deletebtn.addEventListener('click', handleDeleteBtn);
+
+        divElButtons.appendChild(changeBtn);
+        divElButtons.appendChild(deletebtn);
+
+        liAppoitmentsEl.appendChild(divElButtons);
+        appoitmentList.appendChild(liAppoitmentsEl);
+
         function handleChangeBtn(){
-            console.log(`change btn`);
+            document.getElementById('car-model').value=orerObj.model;
+            document.getElementById('car-service').value= orerObj.service;
+            document.getElementById('date').value=orerObj.date;
+
+            liAppoitmentsEl.remove();
+
+            currentEditingId = orerObj._id;
+            editAppoitmetBtn.disabled = false;
+            addAppointmentBtn.disabled =true;
+
             
         };
 
+        
+
+        async function handleDeleteBtn() {
+            await fetch(`http://localhost:3030/jsonstore/appointments/${orerObj._id}`, {
+                method: 'DELETE'
+            })
+            await handleLoadAppoitnemts();
+        }
+
     })
 
+}
+
+async function handleAddBtn() {
+    const model = carModelEl.value.trim();
+    const service = serviceEl.value.trim();
+    const date = dateEl.value.trim();
+
+    if (!model || !service || !date) return;
+
+    const createRes = await fetch('http://localhost:3030/jsonstore/appointments/', {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(
+           { model,
+            service,
+            date}
+        )
+    });
+    formEl.reset();
+    await handleLoadAppoitnemts();
+    
+}
+
+async function handleEditBtn() {
+     const model = carModelEl.value.trim();
+    const service = serviceEl.value.trim();
+    const date = dateEl.value.trim();
+
+    if (!model || !service || !date) return;
+    const createRes = await fetch(`http://localhost:3030/jsonstore/appointments/${currentEditingId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(
+           { model,
+            service,
+            date}
+        )
+    });
+    editAppoitmetBtn.disabled = true;
+    addAppointmentBtn.disabled =false;
+    formEl.reset();
+    await handleLoadAppoitnemts();
+    
 }
